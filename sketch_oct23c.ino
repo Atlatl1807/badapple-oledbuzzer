@@ -6,6 +6,7 @@
 #include <Adafruit_NeoPixel.h>
 #include <Keyboard.h>
 #include "RTClib.h"
+#include <U8g2lib.h>
 //#include "timer.h"
 
 #define BUTTON_UP 10
@@ -29,6 +30,14 @@ boolean button_down_now_state = HIGH;
 boolean button_down_old_state = LOW;
 boolean laser_state = HIGH;
 boolean isRtc = true;
+
+long lastmillis = 0;
+long maxtime = 30000;
+
+int pic = 0;
+int maxPics_L1 = 5;
+int maxPics_L2 = 3;
+
 
 void setup() {
   
@@ -100,82 +109,115 @@ if (millis() >= (lastmillis + maxtime))
 if (pic == 1)
 {
   header();
-  display.setCursor(0,11);  display.print (">PARAMETERS");
-  display.setCursor(0,20);  display.print (" DATA RECORD");
-  display.setCursor(0,29);  display.print (" DISPLAY");
-  display.setCursor(0,47);  display.print (" HELP");
-  display.setCursor(0,56);  display.print (" PROJECT INFO");
+  display.setCursor(0,11);  display.print (">CLOCK");
+  display.setCursor(0,20);  display.print (" BAD APPLE");
+  display.setCursor(0,29);  display.print (" EXECUTE ATTACK");
+  display.setCursor(0,47);  display.print (" LASER TOGGLE");
+  display.setCursor(0,56);  display.print (" test2");
   refresh();
 }
 
 if (pic == 2)
 {
   header();
-  display.setCursor(0,11);  display.print (" PARAMETERS");
-  display.setCursor(0,20);  display.print (">DATA RECORD");
-  display.setCursor(0,29);  display.print (" DISPLAY");
-  display.setCursor(0,47);  display.print (" HELP");
-  display.setCursor(0,56);  display.print (" PROJECT INFO");
+  display.setCursor(0,11);  display.print (" CLOCK");
+  display.setCursor(0,20);  display.print (">BAD APPLE");
+  display.setCursor(0,29);  display.print (" EXECUTE ATTACK");
+  display.setCursor(0,47);  display.print (" LASER TOGGLE");
+  display.setCursor(0,56);  display.print (" test2");
   refresh();
 }
 
 if (pic == 3)
 {
   header();
-  display.setCursor(0,11);  display.print (" PARAMETERS");
-  display.setCursor(0,20);  display.print (" DATA RECORD");
-  display.setCursor(0,29);  display.print (">DISPLAY");
-  display.setCursor(0,47);  display.print (" HELP");
-  display.setCursor(0,56);  display.print (" PROJECT INFO");
+  display.setCursor(0,11);  display.print (" CLOCK");
+  display.setCursor(0,20);  display.print (" BAD APPLE");
+  display.setCursor(0,29);  display.print (">EXECUTE ATTACK");
+  display.setCursor(0,47);  display.print (" LASER TOGGLE");
+  display.setCursor(0,56);  display.print (" test");
   refresh();
 }
 
 if (pic == 4)
 {
   header();
-  display.setCursor(0,11);  display.print (" PARAMETERS");
-  display.setCursor(0,20);  display.print (" DATA RECORD");
-  display.setCursor(0,29);  display.print (" DISPLAY");
-  display.setCursor(0,47);  display.print (">HELP");
-  display.setCursor(0,56);  display.print (" PROJECT INFO");
+  display.setCursor(0,11);  display.print (" CLOCK");
+  display.setCursor(0,20);  display.print (" BAD APPLE");
+  display.setCursor(0,29);  display.print (" EXECUTE ATTACK");
+  display.setCursor(0,47);  display.print (">LASER TOGGLE");
+  display.setCursor(0,56);  display.print (" test");
   refresh();
 }
 
 if (pic == 5)
 {
   header();
-  display.setCursor(0,11);  display.print (" PARAMETERS");
-  display.setCursor(0,20);  display.print (" DATA RECORD");
-  display.setCursor(0,29);  display.print (" DISPLAY");
-  display.setCursor(0,47);  display.print (" HELP");
-  display.setCursor(0,56);  display.print (">PROJECT INFO");
+  display.setCursor(0,11);  display.print (" CLOCK");
+  display.setCursor(0,20);  display.print (" BAD APPLE");
+  display.setCursor(0,29);  display.print (" EXECUTE ATTACK");
+  display.setCursor(0,47);  display.print (">LASER TOGGLE");
+  display.setCursor(0,56);  display.print (" test");
   refresh();
 }
 
-
-
-
-  
-if(digitalRead(BUTTON_CENTER)==LOW){
+if(digitalRead(BUTTON_CENTER)==LOW)
+{
     badMenu();
-  }
-  
-  //Check 
-  button_down_now_state = digitalRead (BUTTON_DOWN);
- if (button_down_old_state == LOW && button_down_now_state == HIGH) {        //if low -> high
-      laser_state = !laser_state;                        //switch state: true <-> false
-      digitalWrite(LASER, laser_state);
-        }
-      button_down_old_state = button_down_now_state;       //save button state
-      //delay(500);
-
-  
-}//end of loop
-
-void badApple(){
-  display.
 }
 
+  
+} //end loop
+
+
+void badMenu(){
+  lastmillis = millis();
+  if(pic>=0 && pic<10)
+  {
+    if (pic >= maxPics_L1)
+    {
+      pic=1;
+    }
+    else if(pic < maxPics_L1)
+    {
+      pic++;
+    }
+  }
+
+  if(pic>=10 && pic<100)
+  {
+    if (pic > 30)
+    {
+      pic=11;
+    }
+    else if (pic < 30)
+    {
+      pic=pic+10;
+    }
+  }
+}
+
+void badApple()
+{
+  // test
+}
+
+void header()
+{
+  display.setTextSize(1);
+  display.setTextColor(WHITE);
+  display.setCursor(22,0);  
+  display.print("badMenu!!");
+  display.drawLine (0,9,128,9, WHITE);
+}
+
+
+void refresh()
+{
+  display.display();
+  delay(00);
+  display.clearDisplay();
+}
 
 void badUSB(){
   delay(2000);
@@ -207,18 +249,13 @@ void badUSB(){
   delay(500); 
 }
 
-void header()
-{
-  display.setTextSize(1);
-  display.setTextColor(WHITE);
-  display.setCursor(22,0);  display.print("rg-electronics");
-  display.drawLine (0,9,128,9, WHITE);
-}
 
 
-void refresh()
-{
-  display.display();
-  delay(00);
-  display.clearDisplay();
-}
+
+  //add this to laser menu later
+  //button_down_now_state = digitalRead (BUTTON_DOWN);
+  //if (button_down_old_state == LOW && button_down_now_state == HIGH) {        //if low -> high
+      //laser_state = !laser_state;                        //switch state: true <-> false
+      //digitalWrite(LASER, laser_state);
+  //button_down_old_state = button_down_now_state;       //save button state
+      //delay(500);
