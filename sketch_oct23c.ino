@@ -35,8 +35,8 @@ long lastmillis = 0;
 long maxtime = 30000;
 
 int pic = 0;
-int maxPics_L1 = 5;
-int maxPics_L2 = 3;
+int maxPics = 4;
+
 
 
 void setup() {
@@ -161,45 +161,462 @@ if (pic == 5)
   refresh();
 }
 
+if(digitalRead(BUTTON_DOWN)==LOW)
+{
+    if(pic>=0 && pic<10)
+  {
+    if (pic >= maxPics)
+    {
+      pic=1;
+    }
+    else if(pic < maxPics)
+    {
+      pic++;
+    }
+  }
+}
+
+if(digitalRead(BUTTON_UP)==LOW)
+{
+    if(pic > 0 )
+  {
+    if (pic <= 1)
+    {
+      pic = maxPics;
+    }
+    else if(pic < maxPics)
+    {
+      pic--;
+    }
+  }
+}
+
 if(digitalRead(BUTTON_CENTER)==LOW)
 {
-    badMenu();
+    if(pic>=0 && pic<10)
+  {
+    if (pic = 1)
+    {
+      pic=0;
+    }
+    else if(pic = 2)
+    {
+      badApple();
+    }
+    else if(pic = 3)
+    {
+      badUSB();
+    }
+    else if(pic = 3)
+    {
+      laser();
+    }
+  }
 }
 
   
 } //end loop
 
-
-void badMenu(){
-  lastmillis = millis();
-  if(pic>=0 && pic<10)
-  {
-    if (pic >= maxPics_L1)
-    {
-      pic=1;
-    }
-    else if(pic < maxPics_L1)
-    {
-      pic++;
-    }
-  }
-
-  if(pic>=10 && pic<100)
-  {
-    if (pic > 30)
-    {
-      pic=11;
-    }
-    else if (pic < 30)
-    {
-      pic=pic+10;
-    }
-  }
-}
-
 void badApple()
 {
-  // test
+  
+    tone(BUZZER, 622, 140.0390625);
+    delay(155.598958333);
+    tone(BUZZER, 698, 141.2109375);
+    delay(156.901041667);
+    tone(BUZZER, 739, 140.0390625);
+    delay(155.598958333);
+    tone(BUZZER, 830, 141.2109375);
+    delay(156.901041667);
+    tone(BUZZER, 932, 281.25);
+    delay(312.5);
+    tone(BUZZER, 622, 140.0390625);
+    delay(155.598958333);
+    tone(BUZZER, 1108, 141.2109375);
+    delay(156.901041667);
+    tone(BUZZER, 932, 281.25);
+    delay(312.5);
+    tone(BUZZER, 622, 281.25);
+    delay(312.5);
+    tone(BUZZER, 932, 140.0390625);
+    delay(155.598958333);
+    tone(BUZZER, 830, 141.2109375);
+    delay(156.901041667);
+    tone(BUZZER, 739, 140.0390625);
+    delay(155.598958333);
+    tone(BUZZER, 698, 141.2109375);
+    delay(156.901041667);
+    tone(BUZZER, 622, 140.0390625);
+    delay(155.598958333);
+    tone(BUZZER, 698, 141.2109375);
+    delay(156.901041667);
+    tone(BUZZER, 739, 140.0390625);
+    delay(155.598958333);
+    tone(BUZZER, 830, 141.2109375);
+    delay(156.901041667);
+    tone(BUZZER, 932, 281.25);
+    delay(312.5);
+    tone(BUZZER, 830, 140.0390625);
+    delay(155.598958333);
+    tone(BUZZER, 739, 141.2109375);
+    delay(156.901041667);
+    tone(BUZZER, 698, 140.0390625);
+    delay(155.598958333);
+    tone(BUZZER, 466, 141.2109375);
+    delay(156.901041667);
+    tone(BUZZER, 698, 140.0390625);
+    delay(155.598958333);
+    tone(BUZZER, 739, 141.2109375);
+    delay(156.901041667);
+    tone(BUZZER, 698, 140.0390625);
+    delay(155.598958333);
+    tone(BUZZER, 622, 141.2109375);
+    delay(156.901041667);
+    tone(BUZZER, 587, 140.0390625);
+    delay(155.598958333);
+    tone(BUZZER, 698, 141.2109375);
+    delay(156.901041667);
+    tone(BUZZER, 622, 140.0390625);
+    delay(155.598958333);
+    tone(BUZZER, 698, 141.2109375);
+    delay(156.901041667);
+    tone(BUZZER, 739, 140.0390625);
+    delay(155.598958333);
+    tone(BUZZER, 830, 141.2109375);
+    delay(156.901041667);
+    tone(BUZZER, 932, 281.25);
+    delay(312.5);
+    tone(BUZZER, 830, 140.0390625);
+    delay(155.598958333);
+    tone(BUZZER, 1108, 141.2109375);
+    delay(156.901041667);
+    tone(BUZZER, 1244, 281.25);
+    delay(312.5);
+    tone(BUZZER, 1244, 281.25);
+    delay(312.5);
+    tone(BUZZER, 1396, 281.25);
+    delay(312.5);
+    tone(BUZZER, 1479, 281.25);
+    delay(312.5);
+    tone(BUZZER, 1244, 140.0390625);
+    delay(155.598958333);
+    tone(BUZZER, 1396, 141.2109375);
+    delay(156.901041667);
+    tone(BUZZER, 1479, 140.0390625);
+    delay(155.598958333);
+    tone(BUZZER, 1661, 141.2109375);
+    delay(156.901041667);
+    tone(BUZZER, 1864, 281.25);
+    delay(312.5);
+    tone(BUZZER, 1661, 140.0390625);
+    delay(155.598958333);
+    tone(BUZZER, 1479, 141.2109375);
+    delay(156.901041667);
+    tone(BUZZER, 1661, 281.25);
+    delay(312.5);
+    tone(BUZZER, 1396, 281.25);
+    delay(312.5);
+    tone(BUZZER, 1479, 281.25);
+    delay(312.5);
+    tone(BUZZER, 1661, 281.25);
+    delay(312.5);
+    tone(BUZZER, 622, 562.5);
+    delay(625.0);
+    tone(BUZZER, 622, 140.0390625);
+    delay(155.598958333);
+    tone(BUZZER, 698, 141.2109375);
+    delay(156.901041667);
+    tone(BUZZER, 739, 281.25);
+    delay(312.5);
+    tone(BUZZER, 698, 421.2890625);
+    delay(468.098958333);
+    tone(BUZZER, 466, 422.4609375);
+    delay(469.401041667);
+    tone(BUZZER, 698, 281.25);
+    delay(312.5);
+    tone(BUZZER, 698, 281.25);
+    delay(312.5);
+    tone(BUZZER, 739, 140.0390625);
+    delay(155.598958333);
+    tone(BUZZER, 622, 422.4609375);
+    delay(469.401041667);
+    tone(BUZZER, 554, 281.25);
+    delay(312.5);
+    tone(BUZZER, 554, 281.25);
+    delay(312.5);
+    tone(BUZZER, 622, 140.0390625);
+    delay(155.598958333);
+    tone(BUZZER, 466, 422.4609375);
+    delay(469.401041667);
+    tone(BUZZER, 622, 281.25);
+    delay(312.5);
+    tone(BUZZER, 622, 562.5);
+    delay(625.0);
+    tone(BUZZER, 622, 140.0390625);
+    delay(155.598958333);
+    tone(BUZZER, 698, 141.2109375);
+    delay(156.901041667);
+    tone(BUZZER, 739, 281.25);
+    delay(312.5);
+    tone(BUZZER, 698, 421.2890625);
+    delay(468.098958333);
+    tone(BUZZER, 739, 422.4609375);
+    delay(469.401041667);
+    tone(BUZZER, 830, 281.25);
+    delay(312.5);
+    tone(BUZZER, 622, 421.2890625);
+    delay(468.098958333);
+    tone(BUZZER, 932, 141.2109375);
+    delay(156.901041667);
+    tone(BUZZER, 932, 1125.0);
+    delay(1250.0);
+    tone(BUZZER, 830, 140.0390625);
+    delay(155.598958333);
+    tone(BUZZER, 932, 141.2109375);
+    delay(156.901041667);
+    tone(BUZZER, 1108, 281.25);
+    delay(312.5);
+    tone(BUZZER, 1244, 562.5);
+    delay(625.0);
+    tone(BUZZER, 1244, 140.0390625);
+    delay(155.598958333);
+    tone(BUZZER, 1396, 141.2109375);
+    delay(156.901041667);
+    tone(BUZZER, 1479, 281.25);
+    delay(312.5);
+    tone(BUZZER, 1396, 421.2890625);
+    delay(468.098958333);
+    tone(BUZZER, 932, 422.4609375);
+    delay(469.401041667);
+    tone(BUZZER, 1396, 281.25);
+    delay(312.5);
+    tone(BUZZER, 1396, 281.25);
+    delay(312.5);
+    tone(BUZZER, 1479, 140.0390625);
+    delay(155.598958333);
+    tone(BUZZER, 1244, 422.4609375);
+    delay(469.401041667);
+    tone(BUZZER, 1108, 281.25);
+    delay(312.5);
+    tone(BUZZER, 1108, 281.25);
+    delay(312.5);
+    tone(BUZZER, 1244, 140.0390625);
+    delay(155.598958333);
+    tone(BUZZER, 932, 422.4609375);
+    delay(469.401041667);
+    tone(BUZZER, 1396, 281.25);
+    delay(312.5);
+    tone(BUZZER, 1244, 562.5);
+    delay(625.0);
+    tone(BUZZER, 1244, 140.0390625);
+    delay(155.598958333);
+    tone(BUZZER, 1396, 141.2109375);
+    delay(156.901041667);
+    tone(BUZZER, 1479, 140.0390625);
+    delay(155.598958333);
+    tone(BUZZER, 1661, 141.2109375);
+    delay(156.901041667);
+    tone(BUZZER, 1396, 421.2890625);
+    delay(468.098958333);
+    tone(BUZZER, 1479, 422.4609375);
+    delay(469.401041667);
+    tone(BUZZER, 1661, 281.25);
+    delay(312.5);
+    tone(BUZZER, 1174, 421.2890625);
+    delay(468.098958333);
+    tone(BUZZER, 932, 422.4609375);
+    delay(469.401041667);
+    tone(BUZZER, 1864, 281.25);
+    delay(312.5);
+    tone(BUZZER, 1661, 281.25);
+    delay(312.5);
+    tone(BUZZER, 1479, 281.25);
+    delay(312.5);
+    tone(BUZZER, 1396, 281.25);
+    delay(312.5);
+    tone(BUZZER, 1479, 281.25);
+    delay(312.5);
+    tone(BUZZER, 783, 140.0390625);
+    delay(155.598958333);
+    tone(BUZZER, 587, 281.25);
+    delay(312.5);
+    tone(BUZZER, 783, 281.25);
+    delay(312.5);
+    tone(BUZZER, 466, 141.2109375);
+    delay(156.901041667);
+    tone(BUZZER, 587, 140.0390625);
+    delay(155.598958333);
+    tone(BUZZER, 698, 141.2109375);
+    delay(156.901041667);
+    tone(BUZZER, 783, 140.0390625);
+    delay(155.598958333);
+    tone(BUZZER, 587, 141.2109375);
+    delay(156.901041667);
+    tone(BUZZER, 466, 140.0390625);
+    delay(155.598958333);
+    tone(BUZZER, 783, 281.25);
+    delay(312.5);
+    tone(BUZZER, 783, 141.2109375);
+    delay(156.901041667);
+    tone(BUZZER, 880, 140.0390625);
+    delay(155.598958333);
+    tone(BUZZER, 932, 141.2109375);
+    delay(156.901041667);
+    tone(BUZZER, 783, 140.0390625);
+    delay(155.598958333);
+    tone(BUZZER, 587, 281.25);
+    delay(312.5);
+    tone(BUZZER, 783, 281.25);
+    delay(312.5);
+    tone(BUZZER, 587, 141.2109375);
+    delay(156.901041667);
+    tone(BUZZER, 783, 140.0390625);
+    delay(155.598958333);
+    tone(BUZZER, 1046, 141.2109375);
+    delay(156.901041667);
+    tone(BUZZER, 932, 562.5);
+    delay(625.0);
+    tone(BUZZER, 880, 140.0390625);
+    delay(155.598958333);
+    tone(BUZZER, 783, 141.2109375);
+    delay(156.901041667);
+    tone(BUZZER, 587, 140.0390625);
+    delay(155.598958333);
+    tone(BUZZER, 466, 141.2109375);
+    delay(156.901041667);
+    tone(BUZZER, 783, 140.0390625);
+    delay(155.598958333);
+    tone(BUZZER, 587, 281.25);
+    delay(312.5);
+    tone(BUZZER, 783, 281.25);
+    delay(312.5);
+    tone(BUZZER, 466, 141.2109375);
+    delay(156.901041667);
+    tone(BUZZER, 587, 140.0390625);
+    delay(155.598958333);
+    tone(BUZZER, 698, 141.2109375);
+    delay(156.901041667);
+    tone(BUZZER, 783, 140.0390625);
+    delay(155.598958333);
+    tone(BUZZER, 587, 141.2109375);
+    delay(156.901041667);
+    tone(BUZZER, 466, 140.0390625);
+    delay(155.598958333);
+    tone(BUZZER, 783, 281.25);
+    delay(312.5);
+    tone(BUZZER, 783, 141.2109375);
+    delay(156.901041667);
+    tone(BUZZER, 880, 140.0390625);
+    delay(155.598958333);
+    tone(BUZZER, 932, 141.2109375);
+    delay(156.901041667);
+    tone(BUZZER, 783, 140.0390625);
+    delay(155.598958333);
+    tone(BUZZER, 587, 281.25);
+    delay(312.5);
+    tone(BUZZER, 783, 281.25);
+    delay(312.5);
+    tone(BUZZER, 587, 141.2109375);
+    delay(156.901041667);
+    tone(BUZZER, 783, 140.0390625);
+    delay(155.598958333);
+    tone(BUZZER, 1046, 141.2109375);
+    delay(156.901041667);
+    tone(BUZZER, 932, 562.5);
+    delay(625.0);
+    tone(BUZZER, 880, 281.25);
+    delay(312.5);
+    tone(BUZZER, 932, 281.25);
+    delay(312.5);
+    tone(BUZZER, 1567, 140.0390625);
+    delay(155.598958333);
+    tone(BUZZER, 1174, 281.25);
+    delay(312.5);
+    tone(BUZZER, 1567, 281.25);
+    delay(312.5);
+    tone(BUZZER, 932, 141.2109375);
+    delay(156.901041667);
+    tone(BUZZER, 1174, 140.0390625);
+    delay(155.598958333);
+    tone(BUZZER, 1396, 141.2109375);
+    delay(156.901041667);
+    tone(BUZZER, 1567, 140.0390625);
+    delay(155.598958333);
+    tone(BUZZER, 1174, 141.2109375);
+    delay(156.901041667);
+    tone(BUZZER, 932, 140.0390625);
+    delay(155.598958333);
+    tone(BUZZER, 1567, 281.25);
+    delay(312.5);
+    tone(BUZZER, 1567, 141.2109375);
+    delay(156.901041667);
+    tone(BUZZER, 1760, 140.0390625);
+    delay(155.598958333);
+    tone(BUZZER, 1864, 141.2109375);
+    delay(156.901041667);
+    tone(BUZZER, 1567, 140.0390625);
+    delay(155.598958333);
+    tone(BUZZER, 1174, 281.25);
+    delay(312.5);
+    tone(BUZZER, 1567, 281.25);
+    delay(312.5);
+    tone(BUZZER, 1174, 141.2109375);
+    delay(156.901041667);
+    tone(BUZZER, 1567, 140.0390625);
+    delay(155.598958333);
+    tone(BUZZER, 2093, 141.2109375);
+    delay(156.901041667);
+    tone(BUZZER, 1864, 562.5);
+    delay(625.0);
+    tone(BUZZER, 1760, 140.0390625);
+    delay(155.598958333);
+    tone(BUZZER, 1567, 141.2109375);
+    delay(156.901041667);
+    tone(BUZZER, 1174, 140.0390625);
+    delay(155.598958333);
+    tone(BUZZER, 932, 141.2109375);
+    delay(156.901041667);
+    tone(BUZZER, 1567, 140.0390625);
+    delay(155.598958333);
+    tone(BUZZER, 1174, 281.25);
+    delay(312.5);
+    tone(BUZZER, 1567, 281.25);
+    delay(312.5);
+    tone(BUZZER, 932, 141.2109375);
+    delay(156.901041667);
+    tone(BUZZER, 1174, 140.0390625);
+    delay(155.598958333);
+    tone(BUZZER, 1396, 141.2109375);
+    delay(156.901041667);
+    tone(BUZZER, 1567, 140.0390625);
+    delay(155.598958333);
+    tone(BUZZER, 1174, 141.2109375);
+    delay(156.901041667);
+    tone(BUZZER, 932, 140.0390625);
+    delay(155.598958333);
+    tone(BUZZER, 1567, 281.25);
+    delay(312.5);
+    tone(BUZZER, 1567, 141.2109375);
+    delay(156.901041667);
+    tone(BUZZER, 1760, 140.0390625);
+    delay(155.598958333);
+    tone(BUZZER, 1864, 141.2109375);
+    delay(156.901041667);
+    tone(BUZZER, 1567, 140.0390625);
+    delay(155.598958333);
+    tone(BUZZER, 1174, 281.25);
+    delay(312.5);
+    tone(BUZZER, 1567, 281.25);
+    delay(312.5);
+    tone(BUZZER, 1174, 141.2109375);
+    delay(156.901041667);
+    tone(BUZZER, 1567, 140.0390625);
+    delay(155.598958333);
+    tone(BUZZER, 1760, 141.2109375);
+    delay(156.901041667);
+    tone(BUZZER, 1864, 1125.0);
+    delay(1250.0);
+
 }
 
 void header()
@@ -249,13 +666,12 @@ void badUSB(){
   delay(500); 
 }
 
-
-
-
-  //add this to laser menu later
+void laser()
+{
   //button_down_now_state = digitalRead (BUTTON_DOWN);
   //if (button_down_old_state == LOW && button_down_now_state == HIGH) {        //if low -> high
-      //laser_state = !laser_state;                        //switch state: true <-> false
-      //digitalWrite(LASER, laser_state);
+      laser_state = !laser_state;                        //switch state: true <-> false
+      digitalWrite(LASER, laser_state);
   //button_down_old_state = button_down_now_state;       //save button state
-      //delay(500);
+      delay(500);
+}
