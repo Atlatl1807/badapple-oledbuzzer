@@ -6,7 +6,7 @@
 #include <Adafruit_NeoPixel.h>
 #include <Keyboard.h>
 #include "RTClib.h"
-#include <U8g2lib.h>
+//#include <U8g2lib.h>
 //#include "timer.h"
 
 #define BUTTON_UP 10
@@ -31,13 +31,8 @@ boolean button_down_old_state = LOW;
 boolean laser_state = HIGH;
 boolean isRtc = true;
 
-long lastmillis = 0;
-long maxtime = 30000;
-
 int pic = 0;
 int maxPics = 4;
-
-
 
 void setup() {
   
@@ -45,6 +40,7 @@ void setup() {
   //Serial.begin(115200);
   //timer.every(9000, keypower);
   rtc.begin(); //starts rtc chip
+  rtc.adjust(DateTime(F(__DATE__), F(__TIME__)));
   sensor.init(); //initalize sensor 
   sensor.setTimeout(500); //sets distance sensor reading timing
   sensor.startContinuous(); //sets distance sensor reading
@@ -64,11 +60,6 @@ void setup() {
 
 void loop() {
   //timer.tick();
-if (millis() >= (lastmillis + maxtime))
-{
-    pic = 0;
-}
-
   if (pic == 0)
 {
   DateTime now = rtc.now();
@@ -112,8 +103,9 @@ if (pic == 1)
   display.setCursor(0,11);  display.print (">CLOCK");
   display.setCursor(0,20);  display.print (" BAD APPLE");
   display.setCursor(0,29);  display.print (" EXECUTE ATTACK");
-  display.setCursor(0,47);  display.print (" LASER TOGGLE");
-  display.setCursor(0,56);  display.print (" test2");
+  display.setCursor(0,38);  display.print (" LASER TOGGLE");
+  display.setCursor(0,47);  display.print (" ");
+  display.setCursor(0,56);  display.print (" ");
   refresh();
 }
 
@@ -123,8 +115,9 @@ if (pic == 2)
   display.setCursor(0,11);  display.print (" CLOCK");
   display.setCursor(0,20);  display.print (">BAD APPLE");
   display.setCursor(0,29);  display.print (" EXECUTE ATTACK");
-  display.setCursor(0,47);  display.print (" LASER TOGGLE");
-  display.setCursor(0,56);  display.print (" test2");
+  display.setCursor(0,38);  display.print (" LASER TOGGLE");
+  display.setCursor(0,47);  display.print (" ");
+  display.setCursor(0,56);  display.print (" ");
   refresh();
 }
 
@@ -134,8 +127,9 @@ if (pic == 3)
   display.setCursor(0,11);  display.print (" CLOCK");
   display.setCursor(0,20);  display.print (" BAD APPLE");
   display.setCursor(0,29);  display.print (">EXECUTE ATTACK");
-  display.setCursor(0,47);  display.print (" LASER TOGGLE");
-  display.setCursor(0,56);  display.print (" test");
+  display.setCursor(0,38);  display.print (" LASER TOGGLE");
+  display.setCursor(0,47);  display.print (" ");
+  display.setCursor(0,56);  display.print (" ");
   refresh();
 }
 
@@ -145,21 +139,12 @@ if (pic == 4)
   display.setCursor(0,11);  display.print (" CLOCK");
   display.setCursor(0,20);  display.print (" BAD APPLE");
   display.setCursor(0,29);  display.print (" EXECUTE ATTACK");
-  display.setCursor(0,47);  display.print (">LASER TOGGLE");
-  display.setCursor(0,56);  display.print (" test");
+  display.setCursor(0,38);  display.print (">LASER TOGGLE");
+  display.setCursor(0,47);  display.print (" ");
+  display.setCursor(0,56);  display.print (" ");
   refresh();
 }
 
-if (pic == 5)
-{
-  header();
-  display.setCursor(0,11);  display.print (" CLOCK");
-  display.setCursor(0,20);  display.print (" BAD APPLE");
-  display.setCursor(0,29);  display.print (" EXECUTE ATTACK");
-  display.setCursor(0,47);  display.print (">LASER TOGGLE");
-  display.setCursor(0,56);  display.print (" test");
-  refresh();
-}
 
 if(digitalRead(BUTTON_DOWN)==LOW)
 {
@@ -169,7 +154,7 @@ if(digitalRead(BUTTON_DOWN)==LOW)
     {
       pic=1;
     }
-    else if(pic < maxPics)
+    else if(pic <= maxPics)
     {
       pic++;
     }
@@ -184,7 +169,7 @@ if(digitalRead(BUTTON_UP)==LOW)
     {
       pic = maxPics;
     }
-    else if(pic < maxPics)
+    else if(pic <= maxPics)
     {
       pic--;
     }
@@ -193,429 +178,30 @@ if(digitalRead(BUTTON_UP)==LOW)
 
 if(digitalRead(BUTTON_CENTER)==LOW)
 {
-    if(pic>=0 && pic<10)
-  {
-    if (pic = 1)
+    if (pic == 1)
     {
       pic=0;
     }
-    else if(pic = 2)
+    else if(pic == 2)
     {
       badApple();
     }
-    else if(pic = 3)
+    else if(pic == 3)
     {
       badUSB();
     }
-    else if(pic = 3)
+    else if(pic == 4)
     {
       laser();
     }
-  }
 }
+
 
   
 } //end loop
 
 void badApple()
 {
-  
-    tone(BUZZER, 622, 140.0390625);
-    delay(155.598958333);
-    tone(BUZZER, 698, 141.2109375);
-    delay(156.901041667);
-    tone(BUZZER, 739, 140.0390625);
-    delay(155.598958333);
-    tone(BUZZER, 830, 141.2109375);
-    delay(156.901041667);
-    tone(BUZZER, 932, 281.25);
-    delay(312.5);
-    tone(BUZZER, 622, 140.0390625);
-    delay(155.598958333);
-    tone(BUZZER, 1108, 141.2109375);
-    delay(156.901041667);
-    tone(BUZZER, 932, 281.25);
-    delay(312.5);
-    tone(BUZZER, 622, 281.25);
-    delay(312.5);
-    tone(BUZZER, 932, 140.0390625);
-    delay(155.598958333);
-    tone(BUZZER, 830, 141.2109375);
-    delay(156.901041667);
-    tone(BUZZER, 739, 140.0390625);
-    delay(155.598958333);
-    tone(BUZZER, 698, 141.2109375);
-    delay(156.901041667);
-    tone(BUZZER, 622, 140.0390625);
-    delay(155.598958333);
-    tone(BUZZER, 698, 141.2109375);
-    delay(156.901041667);
-    tone(BUZZER, 739, 140.0390625);
-    delay(155.598958333);
-    tone(BUZZER, 830, 141.2109375);
-    delay(156.901041667);
-    tone(BUZZER, 932, 281.25);
-    delay(312.5);
-    tone(BUZZER, 830, 140.0390625);
-    delay(155.598958333);
-    tone(BUZZER, 739, 141.2109375);
-    delay(156.901041667);
-    tone(BUZZER, 698, 140.0390625);
-    delay(155.598958333);
-    tone(BUZZER, 466, 141.2109375);
-    delay(156.901041667);
-    tone(BUZZER, 698, 140.0390625);
-    delay(155.598958333);
-    tone(BUZZER, 739, 141.2109375);
-    delay(156.901041667);
-    tone(BUZZER, 698, 140.0390625);
-    delay(155.598958333);
-    tone(BUZZER, 622, 141.2109375);
-    delay(156.901041667);
-    tone(BUZZER, 587, 140.0390625);
-    delay(155.598958333);
-    tone(BUZZER, 698, 141.2109375);
-    delay(156.901041667);
-    tone(BUZZER, 622, 140.0390625);
-    delay(155.598958333);
-    tone(BUZZER, 698, 141.2109375);
-    delay(156.901041667);
-    tone(BUZZER, 739, 140.0390625);
-    delay(155.598958333);
-    tone(BUZZER, 830, 141.2109375);
-    delay(156.901041667);
-    tone(BUZZER, 932, 281.25);
-    delay(312.5);
-    tone(BUZZER, 830, 140.0390625);
-    delay(155.598958333);
-    tone(BUZZER, 1108, 141.2109375);
-    delay(156.901041667);
-    tone(BUZZER, 1244, 281.25);
-    delay(312.5);
-    tone(BUZZER, 1244, 281.25);
-    delay(312.5);
-    tone(BUZZER, 1396, 281.25);
-    delay(312.5);
-    tone(BUZZER, 1479, 281.25);
-    delay(312.5);
-    tone(BUZZER, 1244, 140.0390625);
-    delay(155.598958333);
-    tone(BUZZER, 1396, 141.2109375);
-    delay(156.901041667);
-    tone(BUZZER, 1479, 140.0390625);
-    delay(155.598958333);
-    tone(BUZZER, 1661, 141.2109375);
-    delay(156.901041667);
-    tone(BUZZER, 1864, 281.25);
-    delay(312.5);
-    tone(BUZZER, 1661, 140.0390625);
-    delay(155.598958333);
-    tone(BUZZER, 1479, 141.2109375);
-    delay(156.901041667);
-    tone(BUZZER, 1661, 281.25);
-    delay(312.5);
-    tone(BUZZER, 1396, 281.25);
-    delay(312.5);
-    tone(BUZZER, 1479, 281.25);
-    delay(312.5);
-    tone(BUZZER, 1661, 281.25);
-    delay(312.5);
-    tone(BUZZER, 622, 562.5);
-    delay(625.0);
-    tone(BUZZER, 622, 140.0390625);
-    delay(155.598958333);
-    tone(BUZZER, 698, 141.2109375);
-    delay(156.901041667);
-    tone(BUZZER, 739, 281.25);
-    delay(312.5);
-    tone(BUZZER, 698, 421.2890625);
-    delay(468.098958333);
-    tone(BUZZER, 466, 422.4609375);
-    delay(469.401041667);
-    tone(BUZZER, 698, 281.25);
-    delay(312.5);
-    tone(BUZZER, 698, 281.25);
-    delay(312.5);
-    tone(BUZZER, 739, 140.0390625);
-    delay(155.598958333);
-    tone(BUZZER, 622, 422.4609375);
-    delay(469.401041667);
-    tone(BUZZER, 554, 281.25);
-    delay(312.5);
-    tone(BUZZER, 554, 281.25);
-    delay(312.5);
-    tone(BUZZER, 622, 140.0390625);
-    delay(155.598958333);
-    tone(BUZZER, 466, 422.4609375);
-    delay(469.401041667);
-    tone(BUZZER, 622, 281.25);
-    delay(312.5);
-    tone(BUZZER, 622, 562.5);
-    delay(625.0);
-    tone(BUZZER, 622, 140.0390625);
-    delay(155.598958333);
-    tone(BUZZER, 698, 141.2109375);
-    delay(156.901041667);
-    tone(BUZZER, 739, 281.25);
-    delay(312.5);
-    tone(BUZZER, 698, 421.2890625);
-    delay(468.098958333);
-    tone(BUZZER, 739, 422.4609375);
-    delay(469.401041667);
-    tone(BUZZER, 830, 281.25);
-    delay(312.5);
-    tone(BUZZER, 622, 421.2890625);
-    delay(468.098958333);
-    tone(BUZZER, 932, 141.2109375);
-    delay(156.901041667);
-    tone(BUZZER, 932, 1125.0);
-    delay(1250.0);
-    tone(BUZZER, 830, 140.0390625);
-    delay(155.598958333);
-    tone(BUZZER, 932, 141.2109375);
-    delay(156.901041667);
-    tone(BUZZER, 1108, 281.25);
-    delay(312.5);
-    tone(BUZZER, 1244, 562.5);
-    delay(625.0);
-    tone(BUZZER, 1244, 140.0390625);
-    delay(155.598958333);
-    tone(BUZZER, 1396, 141.2109375);
-    delay(156.901041667);
-    tone(BUZZER, 1479, 281.25);
-    delay(312.5);
-    tone(BUZZER, 1396, 421.2890625);
-    delay(468.098958333);
-    tone(BUZZER, 932, 422.4609375);
-    delay(469.401041667);
-    tone(BUZZER, 1396, 281.25);
-    delay(312.5);
-    tone(BUZZER, 1396, 281.25);
-    delay(312.5);
-    tone(BUZZER, 1479, 140.0390625);
-    delay(155.598958333);
-    tone(BUZZER, 1244, 422.4609375);
-    delay(469.401041667);
-    tone(BUZZER, 1108, 281.25);
-    delay(312.5);
-    tone(BUZZER, 1108, 281.25);
-    delay(312.5);
-    tone(BUZZER, 1244, 140.0390625);
-    delay(155.598958333);
-    tone(BUZZER, 932, 422.4609375);
-    delay(469.401041667);
-    tone(BUZZER, 1396, 281.25);
-    delay(312.5);
-    tone(BUZZER, 1244, 562.5);
-    delay(625.0);
-    tone(BUZZER, 1244, 140.0390625);
-    delay(155.598958333);
-    tone(BUZZER, 1396, 141.2109375);
-    delay(156.901041667);
-    tone(BUZZER, 1479, 140.0390625);
-    delay(155.598958333);
-    tone(BUZZER, 1661, 141.2109375);
-    delay(156.901041667);
-    tone(BUZZER, 1396, 421.2890625);
-    delay(468.098958333);
-    tone(BUZZER, 1479, 422.4609375);
-    delay(469.401041667);
-    tone(BUZZER, 1661, 281.25);
-    delay(312.5);
-    tone(BUZZER, 1174, 421.2890625);
-    delay(468.098958333);
-    tone(BUZZER, 932, 422.4609375);
-    delay(469.401041667);
-    tone(BUZZER, 1864, 281.25);
-    delay(312.5);
-    tone(BUZZER, 1661, 281.25);
-    delay(312.5);
-    tone(BUZZER, 1479, 281.25);
-    delay(312.5);
-    tone(BUZZER, 1396, 281.25);
-    delay(312.5);
-    tone(BUZZER, 1479, 281.25);
-    delay(312.5);
-    tone(BUZZER, 783, 140.0390625);
-    delay(155.598958333);
-    tone(BUZZER, 587, 281.25);
-    delay(312.5);
-    tone(BUZZER, 783, 281.25);
-    delay(312.5);
-    tone(BUZZER, 466, 141.2109375);
-    delay(156.901041667);
-    tone(BUZZER, 587, 140.0390625);
-    delay(155.598958333);
-    tone(BUZZER, 698, 141.2109375);
-    delay(156.901041667);
-    tone(BUZZER, 783, 140.0390625);
-    delay(155.598958333);
-    tone(BUZZER, 587, 141.2109375);
-    delay(156.901041667);
-    tone(BUZZER, 466, 140.0390625);
-    delay(155.598958333);
-    tone(BUZZER, 783, 281.25);
-    delay(312.5);
-    tone(BUZZER, 783, 141.2109375);
-    delay(156.901041667);
-    tone(BUZZER, 880, 140.0390625);
-    delay(155.598958333);
-    tone(BUZZER, 932, 141.2109375);
-    delay(156.901041667);
-    tone(BUZZER, 783, 140.0390625);
-    delay(155.598958333);
-    tone(BUZZER, 587, 281.25);
-    delay(312.5);
-    tone(BUZZER, 783, 281.25);
-    delay(312.5);
-    tone(BUZZER, 587, 141.2109375);
-    delay(156.901041667);
-    tone(BUZZER, 783, 140.0390625);
-    delay(155.598958333);
-    tone(BUZZER, 1046, 141.2109375);
-    delay(156.901041667);
-    tone(BUZZER, 932, 562.5);
-    delay(625.0);
-    tone(BUZZER, 880, 140.0390625);
-    delay(155.598958333);
-    tone(BUZZER, 783, 141.2109375);
-    delay(156.901041667);
-    tone(BUZZER, 587, 140.0390625);
-    delay(155.598958333);
-    tone(BUZZER, 466, 141.2109375);
-    delay(156.901041667);
-    tone(BUZZER, 783, 140.0390625);
-    delay(155.598958333);
-    tone(BUZZER, 587, 281.25);
-    delay(312.5);
-    tone(BUZZER, 783, 281.25);
-    delay(312.5);
-    tone(BUZZER, 466, 141.2109375);
-    delay(156.901041667);
-    tone(BUZZER, 587, 140.0390625);
-    delay(155.598958333);
-    tone(BUZZER, 698, 141.2109375);
-    delay(156.901041667);
-    tone(BUZZER, 783, 140.0390625);
-    delay(155.598958333);
-    tone(BUZZER, 587, 141.2109375);
-    delay(156.901041667);
-    tone(BUZZER, 466, 140.0390625);
-    delay(155.598958333);
-    tone(BUZZER, 783, 281.25);
-    delay(312.5);
-    tone(BUZZER, 783, 141.2109375);
-    delay(156.901041667);
-    tone(BUZZER, 880, 140.0390625);
-    delay(155.598958333);
-    tone(BUZZER, 932, 141.2109375);
-    delay(156.901041667);
-    tone(BUZZER, 783, 140.0390625);
-    delay(155.598958333);
-    tone(BUZZER, 587, 281.25);
-    delay(312.5);
-    tone(BUZZER, 783, 281.25);
-    delay(312.5);
-    tone(BUZZER, 587, 141.2109375);
-    delay(156.901041667);
-    tone(BUZZER, 783, 140.0390625);
-    delay(155.598958333);
-    tone(BUZZER, 1046, 141.2109375);
-    delay(156.901041667);
-    tone(BUZZER, 932, 562.5);
-    delay(625.0);
-    tone(BUZZER, 880, 281.25);
-    delay(312.5);
-    tone(BUZZER, 932, 281.25);
-    delay(312.5);
-    tone(BUZZER, 1567, 140.0390625);
-    delay(155.598958333);
-    tone(BUZZER, 1174, 281.25);
-    delay(312.5);
-    tone(BUZZER, 1567, 281.25);
-    delay(312.5);
-    tone(BUZZER, 932, 141.2109375);
-    delay(156.901041667);
-    tone(BUZZER, 1174, 140.0390625);
-    delay(155.598958333);
-    tone(BUZZER, 1396, 141.2109375);
-    delay(156.901041667);
-    tone(BUZZER, 1567, 140.0390625);
-    delay(155.598958333);
-    tone(BUZZER, 1174, 141.2109375);
-    delay(156.901041667);
-    tone(BUZZER, 932, 140.0390625);
-    delay(155.598958333);
-    tone(BUZZER, 1567, 281.25);
-    delay(312.5);
-    tone(BUZZER, 1567, 141.2109375);
-    delay(156.901041667);
-    tone(BUZZER, 1760, 140.0390625);
-    delay(155.598958333);
-    tone(BUZZER, 1864, 141.2109375);
-    delay(156.901041667);
-    tone(BUZZER, 1567, 140.0390625);
-    delay(155.598958333);
-    tone(BUZZER, 1174, 281.25);
-    delay(312.5);
-    tone(BUZZER, 1567, 281.25);
-    delay(312.5);
-    tone(BUZZER, 1174, 141.2109375);
-    delay(156.901041667);
-    tone(BUZZER, 1567, 140.0390625);
-    delay(155.598958333);
-    tone(BUZZER, 2093, 141.2109375);
-    delay(156.901041667);
-    tone(BUZZER, 1864, 562.5);
-    delay(625.0);
-    tone(BUZZER, 1760, 140.0390625);
-    delay(155.598958333);
-    tone(BUZZER, 1567, 141.2109375);
-    delay(156.901041667);
-    tone(BUZZER, 1174, 140.0390625);
-    delay(155.598958333);
-    tone(BUZZER, 932, 141.2109375);
-    delay(156.901041667);
-    tone(BUZZER, 1567, 140.0390625);
-    delay(155.598958333);
-    tone(BUZZER, 1174, 281.25);
-    delay(312.5);
-    tone(BUZZER, 1567, 281.25);
-    delay(312.5);
-    tone(BUZZER, 932, 141.2109375);
-    delay(156.901041667);
-    tone(BUZZER, 1174, 140.0390625);
-    delay(155.598958333);
-    tone(BUZZER, 1396, 141.2109375);
-    delay(156.901041667);
-    tone(BUZZER, 1567, 140.0390625);
-    delay(155.598958333);
-    tone(BUZZER, 1174, 141.2109375);
-    delay(156.901041667);
-    tone(BUZZER, 932, 140.0390625);
-    delay(155.598958333);
-    tone(BUZZER, 1567, 281.25);
-    delay(312.5);
-    tone(BUZZER, 1567, 141.2109375);
-    delay(156.901041667);
-    tone(BUZZER, 1760, 140.0390625);
-    delay(155.598958333);
-    tone(BUZZER, 1864, 141.2109375);
-    delay(156.901041667);
-    tone(BUZZER, 1567, 140.0390625);
-    delay(155.598958333);
-    tone(BUZZER, 1174, 281.25);
-    delay(312.5);
-    tone(BUZZER, 1567, 281.25);
-    delay(312.5);
-    tone(BUZZER, 1174, 141.2109375);
-    delay(156.901041667);
-    tone(BUZZER, 1567, 140.0390625);
-    delay(155.598958333);
-    tone(BUZZER, 1760, 141.2109375);
-    delay(156.901041667);
-    tone(BUZZER, 1864, 1125.0);
-    delay(1250.0);
 
 }
 
