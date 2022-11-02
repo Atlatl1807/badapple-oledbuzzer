@@ -1,6 +1,6 @@
 # badapple-oledbuzzer
 Plays Bad Apple on an oled screen and a buzzer  
-Made for DSTIKE bad watch (it might be discontinued)
+Made for DSTIKE bad watch 
 
 Since I ran out of memory and I'm not that good at optimiziaton, it only shows 1 frame and only plays the first 100 notes. 
 
