@@ -362,5 +362,5 @@ void laser()
 
 void badUSB()
 {
-  delay(00);
+    delay(100);
 }
