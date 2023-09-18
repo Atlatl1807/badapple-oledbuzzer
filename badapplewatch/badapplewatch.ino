@@ -165,87 +165,49 @@ void loop() {
   display.display();
   refresh();
 }
-
-if (pic == 1)
-{
-  header();
-  display.setCursor(0,11);  display.print (">CLOCK");
-  display.setCursor(0,20);  display.print (" BAD APPLE");
-  display.setCursor(0,29);  display.print (" EXECUTE ATTACK");
-  display.setCursor(0,38);  display.print (" LASER TOGGLE");
-  display.setCursor(0,47);  display.print (" ");
-  display.setCursor(0,56);  display.print (" ");
-  refresh();
-}
-
-if (pic == 2)
-{
-  header();
-  display.setCursor(0,11);  display.print (" CLOCK");
-  display.setCursor(0,20);  display.print (">BAD APPLE");
-  display.setCursor(0,29);  display.print (" EXECUTE ATTACK");
-  display.setCursor(0,38);  display.print (" LASER TOGGLE");
-  display.setCursor(0,47);  display.print (" ");
-  display.setCursor(0,56);  display.print (" ");
-  refresh();
-}
-
-if (pic == 3)
-{
-  header();
-  display.setCursor(0,11);  display.print (" CLOCK");
-  display.setCursor(0,20);  display.print (" BAD APPLE");
-  display.setCursor(0,29);  display.print (">EXECUTE ATTACK");
-  display.setCursor(0,38);  display.print (" LASER TOGGLE");
-  display.setCursor(0,47);  display.print (" ");
-  display.setCursor(0,56);  display.print (" ");
-  refresh();
-}
-
-if (pic == 4)
-{
-  header();
-  display.setCursor(0,11);  display.print (" CLOCK");
-  display.setCursor(0,20);  display.print (" BAD APPLE");
-  display.setCursor(0,29);  display.print (" EXECUTE ATTACK");
-  display.setCursor(0,38);  display.print (">LASER TOGGLE");
-  display.setCursor(0,47);  display.print (" ");
-  display.setCursor(0,56);  display.print (" ");
-  refresh();
-}
-
-
-if(digitalRead(BUTTON_DOWN)==LOW)
-{
-    if(pic>=0 && pic<10)
-  {
-    if (pic >= maxPics)
-    {
-      pic=1;
+else {
+// pic = 1,2,3,4
+char items[4][18] = {"CLOCK", "BAD APPLE", "EXECUTE ATTACK", "LASER TOGGLE"};
+//header
+  display.setTextSize(1);
+  display.setTextColor(WHITE);
+  display.setCursor(22,0);  
+  display.print("badMenu!!");
+  display.drawLine (0,9,128,9, WHITE);
+int i;
+for (i = 1; i <= 4; i++) {
+    display.setCursor(0, 11 + 9 * i);
+    if (i == pic) {
+        display.print(">");
+    } else {
+        display.print(" ");
     }
-    else if(pic <= maxPics)
-    {
-      pic++;
-    }
-  }
+    display.print(items[i]);
+}
+refresh();
 }
 
-if(digitalRead(BUTTON_UP)==LOW)
-{
-    if(pic > 0 )
-  {
-    if (pic <= 1)
-    {
-      pic = maxPics;
+
+if (digitalRead(BUTTON_DOWN) == LOW) {
+    if (pic >= maxPics) {
+        pic = 1;
+    } 
+    else {
+        pic += 1;
     }
-    else if(pic <= maxPics)
-    {
-      pic--;
-    }
-  }
 }
 
-if(digitalRead(BUTTON_CENTER)==LOW)
+if (digitalRead(BUTTON_UP) == LOW) {
+    if (pic == 1) {
+        pic = maxPics;
+    } 
+    else {
+        pic -= 1;
+    }
+}
+
+
+if (digitalRead(BUTTON_CENTER)==LOW)
 {
     if (pic == 1)
     {
@@ -265,8 +227,6 @@ if(digitalRead(BUTTON_CENTER)==LOW)
     }
 }
 
-
-  
 } //end loop
 
 static const uint16_t Melody0[] PROGMEM = { 
@@ -332,16 +292,6 @@ void playMelody_Data(const uint16_t MelodyData[], const uint16_t MelodyLength, c
     while(Duration--) delay(tempo);
   }
 }
-
-void header()
-{
-  display.setTextSize(1);
-  display.setTextColor(WHITE);
-  display.setCursor(22,0);  
-  display.print("badMenu!!");
-  display.drawLine (0,9,128,9, WHITE);
-}
-
 
 void refresh()
 {
