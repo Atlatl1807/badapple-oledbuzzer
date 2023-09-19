@@ -166,7 +166,7 @@ void loop() {
 }
 else {
 // pic = 1,2,3,4
-char items[4][15] = {"CLOCK", "BAD APPLE", "EXECUTE ATTACK", "LASER TOGGLE"};
+const char* items[4] = {"CLOCK", "BAD APPLE", "EXECUTE ATTACK", "LASER TOGGLE"};
 //header
   display.setTextSize(1);
   display.setTextColor(WHITE);
@@ -174,7 +174,7 @@ char items[4][15] = {"CLOCK", "BAD APPLE", "EXECUTE ATTACK", "LASER TOGGLE"};
   display.print("badMenu!!");
   display.drawLine (0,9,128,9, WHITE);
 int i;
-for (i = 0; i <= 4; i++) {
+for (i = 0; i <= 3; i++) {
     display.setCursor(0, 11 + 9 * i);
     if (i == pic-1) {
         display.print(">");
