@@ -104,7 +104,6 @@ int pic = 0;
 int maxPics = 4;
 
 void setup() {
-  
   Wire.begin();
   //Serial.begin(115200);
   //timer.every(9000, keypower);
@@ -167,7 +166,7 @@ void loop() {
 }
 else {
 // pic = 1,2,3,4
-char items[4][18] = {"CLOCK", "BAD APPLE", "EXECUTE ATTACK", "LASER TOGGLE"};
+char items[4][15] = {"CLOCK", "BAD APPLE", "EXECUTE ATTACK", "LASER TOGGLE"};
 //header
   display.setTextSize(1);
   display.setTextColor(WHITE);
@@ -175,15 +174,17 @@ char items[4][18] = {"CLOCK", "BAD APPLE", "EXECUTE ATTACK", "LASER TOGGLE"};
   display.print("badMenu!!");
   display.drawLine (0,9,128,9, WHITE);
 int i;
-for (i = 1; i <= 4; i++) {
+for (i = 0; i <= 4; i++) {
     display.setCursor(0, 11 + 9 * i);
-    if (i == pic) {
+    if (i == pic-1) {
         display.print(">");
     } else {
         display.print(" ");
     }
     display.print(items[i]);
 }
+display.setCursor(0,47);  display.print (" ");
+display.setCursor(0,56);  display.print (" ");
 refresh();
 }
 
