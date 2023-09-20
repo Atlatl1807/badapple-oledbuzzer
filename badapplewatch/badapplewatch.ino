@@ -1,10 +1,10 @@
-#include <Wire.h>
+//#include <Wire.h>
 #include <VL53L0X.h>
-#include "SPI.h"
+//#include "SPI.h"
 //#include <Adafruit_GrayOLED.h>
 #include <Adafruit_SH1106.h>
 //#include <Adafruit_NeoPixel.h>
-#include <Keyboard.h>
+//#include <Keyboard.h>
 #include "RTClib.h"
 //#include <U8g2lib.h>
 //#include "timer.h"
@@ -94,19 +94,17 @@ const unsigned char reimuImage [] PROGMEM = {
 };
 
 
-char daysOfTheWeek[7][12] = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
+const char* daysOfTheWeek[7] = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
 boolean button_down_now_state = HIGH;
 boolean button_down_old_state = LOW;
 boolean laser_state = HIGH;
 boolean isRtc = true;
 
 int pic = 0;
-int maxPics = 4;
+const int maxPics = 4;
 
 void setup() {
   Wire.begin();
-  //Serial.begin(115200);
-  //timer.every(9000, keypower);
   rtc.begin(); //starts rtc chip
   rtc.adjust(DateTime(F(__DATE__), F(__TIME__)));
   sensor.init(); //initalize sensor 
@@ -122,7 +120,6 @@ void setup() {
   
   display.begin(SH1106_SWITCHCAPVCC, 0x3C);
 
-  //Serial.println("setup almost done");
   delay(2000);
 }
 
@@ -131,13 +128,18 @@ void loop() {
   if (pic == 0)
 {
   DateTime now = rtc.now();
-  display.clearDisplay();
   display.setTextSize(3);
   display.setTextColor(WHITE);
   display.setCursor(0,0);
-  display.print(now.hour(), DEC);
+  display.print(now.twelveHour(), DEC);
   display.print(':');
   display.print(now.minute(), DEC);
+  if (now.isPM() == 1) {
+    display.print(' PM');
+  }
+  else {
+    display.print(' AM');
+  }
   display.setTextSize(1);
   display.print(' ');
   display.print(' ');
@@ -161,12 +163,10 @@ void loop() {
   display.print(':');
   display.print(sensor.readRangeContinuousMillimeters());
   display.print("MM");
-  display.display();
-  refresh();
 }
 else {
 // pic = 1,2,3,4
-const char* items[4] = {"CLOCK", "BAD APPLE", "EXECUTE ATTACK", "LASER TOGGLE"};
+const char* items[maxPics] = {"CLOCK", "BAD APPLE", "EXECUTE BAD USB", "LASER TOGGLE"};
 //header
   display.setTextSize(1);
   display.setTextColor(WHITE);
@@ -183,11 +183,8 @@ for (i = 0; i <= 3; i++) {
     }
     display.print(items[i]);
 }
-display.setCursor(0,47);  display.print (" ");
-display.setCursor(0,56);  display.print (" ");
-refresh();
 }
-
+refresh();
 
 if (digitalRead(BUTTON_DOWN) == LOW) {
     if (pic >= maxPics) {
@@ -262,9 +259,8 @@ static const uint16_t Melody0_Length    = sizeof( Melody0 ) / sizeof(uint16_t);
 
 void badApple()
 {
-      display.clearDisplay(); 
       display.drawBitmap(0, 0, reimuImage, 128, 64, WHITE); 
-      display.display();
+      refresh();
       uint8_t tempo = 1;
       playMelody_Data(Melody0, Melody0_Length, tempo); 
       noTone(BUZZER);
@@ -297,17 +293,13 @@ void playMelody_Data(const uint16_t MelodyData[], const uint16_t MelodyLength, c
 void refresh()
 {
   display.display();
-  delay(00);
   display.clearDisplay();
 }
 
 void laser()
 {
-  //button_down_now_state = digitalRead (BUTTON_DOWN);
-  //if (button_down_old_state == LOW && button_down_now_state == HIGH) {        //if low -> high
       laser_state = !laser_state;                        //switch state: true <-> false
       digitalWrite(LASER, laser_state);
-  //button_down_old_state = button_down_now_state;       //save button state
       delay(500);
 }
 
