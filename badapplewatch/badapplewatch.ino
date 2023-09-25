@@ -1,5 +1,5 @@
 //#include <Wire.h>
-#include <VL53L0X.h>
+//#include <VL53L0X.h>
 //#include "SPI.h"
 //#include <Adafruit_GrayOLED.h>
 #include <Adafruit_SH1106.h>
@@ -19,7 +19,7 @@
 #define PIXEL_PIN   6
 
 Adafruit_SH1106 display(7);
-VL53L0X sensor;
+//VL53L0X sensor;
 //Adafruit_NeoPixel strip = Adafruit_NeoPixel(PIXEL_COUNT, PIXEL_PIN, NEO_GRB + NEO_KHZ800);
 //auto timer = timer_create_default();
 RTC_DS3231 rtc;
@@ -106,9 +106,9 @@ void setup() {
   Wire.begin();
   rtc.begin(); //starts rtc chip
   rtc.adjust(DateTime(F(__DATE__), F(__TIME__)));
-  sensor.init(); //initalize sensor 
-  sensor.setTimeout(500); //sets distance sensor reading timing
-  sensor.startContinuous(); //sets distance sensor reading
+  //sensor.init(); //initalize sensor 
+  //sensor.setTimeout(500); //sets distance sensor reading timing
+  //sensor.startContinuous(); //sets distance sensor reading
 
   pinMode(BUTTON_UP,INPUT_PULLUP);
   pinMode(BUTTON_CENTER,INPUT_PULLUP);
@@ -134,14 +134,11 @@ void loop() {
   display.print(now.twelveHour(), DEC);
   display.print(':');
   display.print(now.minute(), DEC);
-
-  //second and AM/PM
-  int X = display.getCursorX();
-
   display.setTextSize(1);
-  display.setCursor(X + 10, 0);
   display.print(now.second(), DEC);
-  display.setCursor(X + 15, 15);
+
+  display.setCursor(110,13);
+  display.setTextSize(1);
   if (now.isPM()) {
     display.print("PM");
   }
@@ -150,14 +147,19 @@ void loop() {
   }
 
   //date
+  display.setTextSize(1);
   display.setCursor(0,30);
-  display.print(now.year(), DEC);
+
+  display.print(daysOfTheWeek[now.dayOfTheWeek()]);
+  display.print(' ');
+  display.print(now.day(), DEC);
   display.print('/');
   display.print(now.month(), DEC);
   display.print('/');
-  display.print(now.day(), DEC);
-  display.print(' ');
-  display.print(daysOfTheWeek[now.dayOfTheWeek()]);
+  display.print(now.year(), DEC);
+
+
+
 
   //misc
   display.setCursor(0,40);
@@ -165,10 +167,7 @@ void loop() {
   display.print(rtc.getTemperature());
   display.print(" C");
   display.setCursor(0,50);
-  display.print("Distance");
-  display.print(':');
-  display.print(sensor.readRangeContinuousMillimeters());
-  display.print("MM");
+
 }
 else {
 // pic = 1,2,3,4
