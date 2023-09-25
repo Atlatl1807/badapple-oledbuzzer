@@ -18,9 +18,6 @@
 #define PIXEL_COUNT 1
 #define PIXEL_PIN   6
 
-#define TRUE 1
-
-
 Adafruit_SH1106 display(7);
 VL53L0X sensor;
 //Adafruit_NeoPixel strip = Adafruit_NeoPixel(PIXEL_COUNT, PIXEL_PIN, NEO_GRB + NEO_KHZ800);
@@ -131,22 +128,28 @@ void loop() {
   if (pic == 0)
 {
   DateTime now = rtc.now();
+  //time
   display.setTextSize(3);
   display.setCursor(0,0);
   display.print(now.twelveHour(), DEC);
   display.print(':');
   display.print(now.minute(), DEC);
+
+  //second and AM/PM
+  int X = display.getCursorX();
+
   display.setTextSize(1);
-  display.setCursor(75,0);
+  display.setCursor(X + 10, 0);
   display.print(now.second(), DEC);
-  display.setCursor(80,15);
-  if (now.isPM() == TRUE) {
+  display.setCursor(X + 15, 15);
+  if (now.isPM()) {
     display.print("PM");
   }
   else {
     display.print("AM");
   }
-  display.println();
+
+  //date
   display.setCursor(0,30);
   display.print(now.year(), DEC);
   display.print('/');
@@ -155,6 +158,8 @@ void loop() {
   display.print(now.day(), DEC);
   display.print(' ');
   display.print(daysOfTheWeek[now.dayOfTheWeek()]);
+
+  //misc
   display.setCursor(0,40);
   display.print("Temperature: ");
   display.print(rtc.getTemperature());
