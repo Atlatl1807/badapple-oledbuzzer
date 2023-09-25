@@ -18,6 +18,8 @@
 #define PIXEL_COUNT 1
 #define PIXEL_PIN   6
 
+#define TRUE 1
+
 
 Adafruit_SH1106 display(7);
 VL53L0X sensor;
@@ -119,6 +121,7 @@ void setup() {
   pinMode(PIXEL_PIN,OUTPUT);
   
   display.begin(SH1106_SWITCHCAPVCC, 0x3C);
+  display.setTextColor(WHITE);
 
   delay(2000);
 }
@@ -129,22 +132,20 @@ void loop() {
 {
   DateTime now = rtc.now();
   display.setTextSize(3);
-  display.setTextColor(WHITE);
   display.setCursor(0,0);
   display.print(now.twelveHour(), DEC);
   display.print(':');
   display.print(now.minute(), DEC);
-  if (now.isPM() == 1) {
-    display.print(' PM');
+  display.setTextSize(1);
+  display.setCursor(75,0);
+  display.print(now.second(), DEC);
+  display.setCursor(80,15);
+  if (now.isPM() == TRUE) {
+    display.print("PM");
   }
   else {
-    display.print(' AM');
+    display.print("AM");
   }
-  display.setTextSize(1);
-  display.print(' ');
-  display.print(' ');
-  display.print(' ');
-  display.print(now.second(), DEC);
   display.println();
   display.setCursor(0,30);
   display.print(now.year(), DEC);
@@ -169,7 +170,6 @@ else {
 const char* items[maxPics] = {"CLOCK", "BAD APPLE", "EXECUTE BAD USB", "LASER TOGGLE"};
 //header
   display.setTextSize(1);
-  display.setTextColor(WHITE);
   display.setCursor(22,0);  
   display.print("badMenu!!");
   display.drawLine (0,9,128,9, WHITE);
