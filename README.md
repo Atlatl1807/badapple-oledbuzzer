@@ -10,3 +10,4 @@ Credit to:
 * https://github.com/DevCorTec/OLED_I2C_ARDUINO_ONEBUTTON for menu design
 * https://github.com/skprog/badwatch for demo code
 * https://dstike.com/ DSTIKE for hardware
+* https://github.com/mon/bad_apple_virus for program to play bad apple on computers
